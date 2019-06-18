@@ -4,8 +4,6 @@
 
 This is a port of directive-based code from https://github.com/bcabanes/angular-image-cropper to an Angular 7 component.
 
-The original was based around Guillotine jQuery plug-in
-
 ## Installation
 
 No installation process yet. Yarn configuration supports packaging via ng-packagr.
@@ -47,13 +45,27 @@ Add the component to your template.
 
 ```html
   <noodle-ng-image-crop (onCrop)="onCrop($event)"
-                        [height]="300"
-                        [width]="200"
+                        [cropHeight]="300"
+                        [cropWidth]="200"
                         [centerOnInit]="true"
                         [imageSource]=""></noodle-ng-image-crop>
 ```
+#### Options
 
-Add code to your component to handle cropped output.
+Options can be set on the component:
+*```imageSource: string``` URI for image source to crop, can be an URL or base64 data.
+<!--*```check-cross-origin boolean Enable cross origin or not-->
+*```actionLabels: NgNoodleImageCropActionLabels``` text to use on the default crop controls.
+*```zoom-step: number``` Zoom step. Defaults to 0.1;
+*```show-controls boolean Display or not the control buttons (true by default)
+*```fit-on-init: boolean``` Fit the image on initialization (maintains aspect ratio)
+*```center-on-init: boolean``` Center the image on initialization (maintains aspect ratio)
+*```cropHeight: number``` Height of the crop (and display height of bounding box).
+*```cropWidth: number``` Width of the crop (and display width of bounding box).
+
+#### Handling Output
+
+The crop action emits an onCrop event which can be handled by the parent component. The event emits an NgNoodleImageCropData object.
 
 ```javascript
 import { NoodleNgImageCropData } from "noodle-ng-image-crop";
@@ -70,6 +82,17 @@ import { NoodleNgImageCropData } from "noodle-ng-image-crop";
 ```
 
 #### Models
+
+The NoodleNgImageActionLabels model contains details bound to the action controls at run time, allowing customisation of label.
+
+```javascript
+  rotateLeft: string = " < ";
+  rotateRight: string = " > ";
+  zoomIn: string = " + ";
+  zoomOut: string = " - ";
+  fit: string = "(fit)";
+  crop: string = "[crop]"
+```
 
 The NoodleNgImageCropData model contains details of the crop applies and is output by the onCrop event. It contains the following:
 

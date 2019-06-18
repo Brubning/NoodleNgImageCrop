@@ -42,9 +42,9 @@ export class NoodleNgImageCrop implements OnInit {
   @ViewChild("imgCropperContainer") container: ElementRef;
   @ViewChild("imgCropperImage") image: ElementRef;
   // Inputs
-  @Input() actionLabels: NoodleNgImageCropActionLabels = new NoodleNgImageCropActionLabels();
   @Input() imageSource: string; // Source could be a URI or a data (base 64) source
   //@Input() checkCrossOrigin: boolean = true;
+  @Input() actionLabels: NoodleNgImageCropActionLabels = new NoodleNgImageCropActionLabels();
   @Input() zoomStep: number = 0.1;  // Step size for zoom
   @Input() showControls: boolean = true;
   @Input() fitOnInit: boolean = false;
@@ -54,23 +54,19 @@ export class NoodleNgImageCrop implements OnInit {
   // Outputs
   @Output() onCrop: EventEmitter<NoodleNgImageCropData> = new EventEmitter();
   // Component level properties
-  originalSource: string = this.imageSource;
-  imageBindingSource: string;
+  private originalSource: string = this.imageSource;
+  private imageBindingSource: string;
   // State flags
-  isReady: boolean = false;
-  isDragReady: boolean = false;
-  isDragBound: boolean = false;
-  isCropping: boolean = false;
-  pointerPosition: NoodleNgImagePointerPosition = new NoodleNgImagePointerPosition();
+  public isReady: boolean = false;
+  public isDragReady: boolean = false;
+  public isDragBound: boolean = false;
+  public isCropping: boolean = false;
+  public pointerPosition: NoodleNgImagePointerPosition = new NoodleNgImagePointerPosition();
   // Control properties - should be a model and bound to the template
-  cropRatio: number;
-  @Input() width: number;
-  @Input() height: number;
-  left: number;
-  top: number;
-  angle: number;
-  tempLeft: number;
-  tempTop:number;
+  public cropRatio: number;
+  public left: number;
+  public top: number;
+  public angle: number;
   // Crop data
   private cropData: NoodleNgImageCropData = new NoodleNgImageCropData();
   // Callbacks to remove event listeners
@@ -154,14 +150,14 @@ export class NoodleNgImageCrop implements OnInit {
     // Dimensions are changed?
     if (degrees % 180 !== 0) {
       // Switch canvas dimensions (as percentages).
-      var tempW = this.height * this.cropRatio;
-      var tempH = this.width / this.cropRatio;
-      this.width = tempW;
-      this.height = tempH;
-      if (this.width >= 1 && this.height >= 1) {
+      var tempW = this.cropHeight * this.cropRatio;
+      var tempH = this.cropWidth / this.cropRatio;
+      this.cropWidth = tempW;
+      this.cropHeight = tempH;
+      if (this.cropWidth >= 1 && this.cropHeight >= 1) {
         //TODO Convert to bound style using ngStyle
-        this.container.nativeElement.style.width = this.width * 100 + "%";
-        this.container.nativeElement.style.height = this.height * 100 + "%";
+        this.container.nativeElement.style.width = this.cropWidth * 100 + "%";
+        this.container.nativeElement.style.height = this.cropHeight * 100 + "%";
       } else {
         this.fitImage();
       }
@@ -172,7 +168,7 @@ export class NoodleNgImageCrop implements OnInit {
 
     // Adjust element"s (image) dimensions inside the container.
     if (this.angle % 180 !== 0) {
-      var ratio = this.height / this.width * this.cropRatio;
+      var ratio = this.cropHeight / this.cropWidth * this.cropRatio;
       newWidth = ratio;
       newHeight = 1 / ratio;
     }
@@ -199,17 +195,17 @@ export class NoodleNgImageCrop implements OnInit {
     if (zoomFactor <= 0 || zoomFactor == 1)
       return;
 
-    var originalWidth = this.width;
-    if (this.width * zoomFactor > 1 && this.height * zoomFactor > 1) {
-      this.height *= zoomFactor;
-      this.width *= zoomFactor;
+    var originalWidth = this.cropWidth;
+    if (this.cropWidth * zoomFactor > 1 && this.cropHeight * zoomFactor > 1) {
+      this.cropHeight *= zoomFactor;
+      this.cropWidth *= zoomFactor;
       //TODO Convert to bound style using ngStyle
-      this.container.nativeElement.style.height = (this.height * 100).toFixed(2) + "%";
-      this.container.nativeElement.style.width = (this.width * 100).toFixed(2) + "%";
+      this.container.nativeElement.style.height = (this.cropHeight * 100).toFixed(2) + "%";
+      this.container.nativeElement.style.width = (this.cropWidth * 100).toFixed(2) + "%";
       this.cropData.scale *= zoomFactor;
     } else {
       this.fitImage();
-      zoomFactor = this.width / originalWidth;
+      zoomFactor = this.cropWidth / originalWidth;
     }
 
     /**
@@ -231,27 +227,27 @@ export class NoodleNgImageCrop implements OnInit {
 
   // Fit image to container (Best fit)
   private fitImage(): void {
-    const prevWidth = this.width;
-    const relativeRatio = this.height / this.width;
+    const prevWidth = this.cropWidth;
+    const relativeRatio = this.cropHeight / this.cropWidth;
 
     if (relativeRatio > 1) {
-      this.width = 1;
-      this.height = relativeRatio;
+      this.cropWidth = 1;
+      this.cropHeight = relativeRatio;
     } else {
-      this.width = 1 / relativeRatio;
-      this.height = 1;
+      this.cropWidth = 1 / relativeRatio;
+      this.cropHeight = 1;
     }
     
     //TODO Convert to bound style using ngStyle
-    this.container.nativeElement.style.width = (this.width * 100).toFixed(2) + "%";
-    this.container.nativeElement.style.height = (this.height * 100).toFixed(2) + "%";
+    this.container.nativeElement.style.width = (this.cropWidth * 100).toFixed(2) + "%";
+    this.container.nativeElement.style.height = (this.cropHeight * 100).toFixed(2) + "%";
 
-    this.cropData.scale *= this.width / prevWidth;
+    this.cropData.scale *= this.cropWidth / prevWidth;
   }
 
   // Center image to container
   private centerImage(): void {
-    this.setOffset((this.width - 1) / 2, (this.height - 1) / 2);
+    this.setOffset((this.cropWidth - 1) / 2, (this.cropHeight - 1) / 2);
   }
 
   // Determine if the image dimensions mean it must zoom to fit
@@ -259,8 +255,8 @@ export class NoodleNgImageCrop implements OnInit {
     return
       this.image.nativeElement.naturalWidth < this.cropWidth ||
       this.image.nativeElement.naturalHeight < this.cropHeight ||
-      this.width < 1 ||
-      this.height < 1 ||
+      this.cropWidth < 1 ||
+      this.cropHeight < 1 ||
       this.fitOnInit;
   }
 
@@ -362,8 +358,8 @@ export class NoodleNgImageCrop implements OnInit {
   private setDimensions(): void {
     // suspect? crop ratio?
     this.cropRatio = this.cropHeight / this.cropWidth;
-    this.width = this.image.nativeElement.naturalWidth / this.cropWidth;
-    this.height = this.image.nativeElement.naturalHeight / this.cropHeight;
+    this.cropWidth = this.image.nativeElement.naturalWidth / this.cropWidth;
+    this.cropHeight = this.image.nativeElement.naturalHeight / this.cropHeight;
     this.left = 0;
     this.top = 0;
     this.angle = 0;
@@ -374,8 +370,8 @@ export class NoodleNgImageCrop implements OnInit {
     this.cropData = data;
     // Container dimensions
     //TODO Convert to bound style using ngStyle
-    this.container.nativeElement.style.width = (this.width * 100) + "%";
-    this.container.nativeElement.style.height = (this.height * 100) + "%";
+    this.container.nativeElement.style.width = (this.cropWidth * 100) + "%";
+    this.container.nativeElement.style.height = (this.cropHeight * 100) + "%";
     this.container.nativeElement.style.top = "0";
     this.container.nativeElement.style.left = "0";
     // Wrapper dimensions
@@ -485,12 +481,10 @@ export class NoodleNgImageCrop implements OnInit {
 
   // Set image offset
   private setOffset(left: number, top: number) {
-    this.tempLeft = left;
-    this.tempTop = top;
     // Offset left.
     if (left || left === 0) {
       if (left < 0) { left = 0; }
-      if (left > this.width - 1) { left = this.width - 1; }
+      if (left > this.cropWidth - 1) { left = this.cropWidth - 1; }
       
       //TODO Convert to bound style using ngStyle
       this.container.nativeElement.style.left = (-left * 100).toFixed(2) + "%";
@@ -501,7 +495,7 @@ export class NoodleNgImageCrop implements OnInit {
     // Offset top.
     if (top || top === 0) {
       if (top < 0) { top = 0; }
-      if (top > this.height - 1) { top = this.height - 1; }
+      if (top > this.cropHeight - 1) { top = this.cropHeight - 1; }
       
       //TODO Convert to bound style using ngStyle
       this.container.nativeElement.style.top = (-top * 100).toFixed(2) + "%";
