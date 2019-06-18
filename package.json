@@ -12,7 +12,7 @@
   },
   "ngPackage": {
     "lib": {
-      "entryFile": "./src/noodle-ng-image-crop.module.ts"
+      "entryFile": "./src/public_api.ts"
     },
     "whitelistedNonPeerDependencies": [
       "angular",

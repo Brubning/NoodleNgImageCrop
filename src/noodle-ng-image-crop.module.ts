@@ -1,8 +1,9 @@
 import { ModuleWithProviders, NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { NoodleNgImageCrop } from "./noodle-ng-image-crop.component";
+import {
+   NoodleNgImageCrop
+} from "./noodle-ng-image-crop.component";
 
-export * from "./noodle-ng-image-crop.component";
 
 @NgModule({
   imports: [
@@ -12,8 +13,7 @@ export * from "./noodle-ng-image-crop.component";
     NoodleNgImageCrop
   ],
   exports: [
-    NoodleNgImageCrop
-  ]
+    NoodleNgImageCrop]
 })
 export class NoodleNgImageCropModule {
   static forRoot(): ModuleWithProviders {
