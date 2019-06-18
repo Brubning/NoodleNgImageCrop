@@ -53,15 +53,15 @@ Add the component to your template.
 #### Options
 
 Options can be set on the component:
-*```imageSource: string``` URI for image source to crop, can be an URL or base64 data.
+* `imageSource` _string_ URI for image source to crop, can be an URL or base64 data.
 <!--*```check-cross-origin boolean Enable cross origin or not-->
-*```actionLabels: NgNoodleImageCropActionLabels``` text to use on the default crop controls.
-*```zoom-step: number``` Zoom step. Defaults to 0.1;
-*```show-controls boolean Display or not the control buttons (true by default)
-*```fit-on-init: boolean``` Fit the image on initialization (maintains aspect ratio)
-*```center-on-init: boolean``` Center the image on initialization (maintains aspect ratio)
-*```cropHeight: number``` Height of the crop (and display height of bounding box).
-*```cropWidth: number``` Width of the crop (and display width of bounding box).
+* `actionLabels` _NgNoodleImageCropActionLabels_ text to use on the default crop controls.
+* `zoom-step` _number_ Zoom step. Defaults to 0.1;
+* `show-controls` _boolean_ Display or not the control buttons (true by default)
+* `fit-on-init` _boolean_ Fit the image on initialization (maintains aspect ratio)
+* `center-on-init` _boolean_ Center the image on initialization (maintains aspect ratio)
+* `cropHeight` _number_ Height of the crop (and display height of bounding box).
+* `cropWidth` _number_ Width of the crop (and display width of bounding box).
 
 #### Handling Output
 
