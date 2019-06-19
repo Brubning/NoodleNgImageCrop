@@ -13,6 +13,7 @@ import {
 } from "@angular/http";
 import {
   NoodleNgImageCropActionLabels,
+  NoodleNgImageCropActionButton,
   NoodleNgImagePointerPosition,
   NoodleNgImageCropData
 } from "./noodle-ng-image-crop.models";
@@ -45,6 +46,8 @@ export class NoodleNgImageCrop implements OnInit {
   @Input() imageSource: string; // Source could be a URI or a data (base 64) source
   //@Input() checkCrossOrigin: boolean = true;
   @Input() actionLabels: NoodleNgImageCropActionLabels = new NoodleNgImageCropActionLabels();
+  @Input() actionButtons: Array<NoodleNgImageCropActionButton>;
+  private actionCallbacks: { [id: string]: any; } = {};
   @Input() zoomStep: number = 0.1;  // Step size for zoom
   @Input() showControls: boolean = true;
   @Input() fitOnInit: boolean = false;
@@ -81,8 +84,18 @@ export class NoodleNgImageCrop implements OnInit {
 
   // Initialise
   ngOnInit() {
+    // Set up call backs array
+    const self = this;
+    this.actionCallbacks["rotateLeft"] = self.rotateLeft;
+    this.actionCallbacks["rotateRight"] = self.rotateRight;
+    this.actionCallbacks["zoomIn"] = self.zoomIn;
+    this.actionCallbacks["zoomOut"] = self.zoomOut;
+    this.actionCallbacks["fit"] = self.zoomToFit;
+    this.actionCallbacks["crop"] = self.crop;
+    // Load image from source
     this.loadImage();
-
+    // Initialize controls once loading finished.
+    //TODO Convert to Observable
     setTimeout(() => this.initializeControls(), 1000);
   }
 
@@ -90,6 +103,12 @@ export class NoodleNgImageCrop implements OnInit {
   ngOnDestroy() {
     this.startCallbackMouse();
     this.startCallbackTouch;
+  }
+
+  // Execute a callback from a button 
+  executeCallback(button: NoodleNgImageCropActionButton) {
+    if (button.callback)
+      button.callback();
   }
 
   // Rotate left $event handler
@@ -288,6 +307,7 @@ export class NoodleNgImageCrop implements OnInit {
 
   // Initialize the component
   private initializeControls() {
+    this.initializeActionButtons();
     this.setDimensions();
 
     if (this.imageHasToFit()) {
@@ -354,6 +374,27 @@ export class NoodleNgImageCrop implements OnInit {
     this.cropData.croppedImage = canvas.toDataURL("image/jpeg");
     this.onCrop.emit(this.cropData);
     this.isCropping = false;
+  }
+
+  // Initialise the action buttons on the control
+  private initializeActionButtons() {
+    // default buttons
+    if (!this.actionButtons) {
+      this.actionButtons = 
+      [
+        { action: "rotateLeft", text: " < ", cssClass: null, callback: null },
+        { action: "rotateRight", text: " > ", cssClass: null, callback: null },
+        { action: "zoomIn", text: " + ", cssClass: null, callback: null },
+        { action: "zoomOut", text: " - ", cssClass: null, callback: null },
+        { action: "fit", text: " (fit) ", cssClass: null, callback: null },
+        { action: "crop", text: " [crop] ", cssClass: null, callback: null }
+      ];
+    }
+
+    // map callbacks
+    for (let button of this.actionButtons) {
+      button.callback = this.actionCallbacks[button.action];
+    }
   }
 
   // Set dimensions when there is an image bound

@@ -1,4 +1,4 @@
-// Labels attached to buttons. Includes defaults.
+// Labels attached to buttons.
 export class NoodleNgImageCropActionLabels {
   rotateLeft: string = " < ";
   rotateRight: string = " > ";
@@ -7,6 +7,14 @@ export class NoodleNgImageCropActionLabels {
   fit: string = "(fit)";
   crop: string = "[crop]"
 };
+
+// Defines UI text and styles for action button
+export class NoodleNgImageCropActionButton {
+  public action: string;
+  public text: string = "";
+  public cssClass: string = null;
+  public callback: any = null;
+}
 
 // Pointer co-ordinates
 export class NoodleNgImagePointerPosition {
