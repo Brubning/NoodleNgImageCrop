@@ -31,6 +31,8 @@ export class NoodleNgImageCrop implements OnInit {
   }
 
   // TODO
+  // tests
+  // migrate to HttpClient
   // loadImage (cross origin load)
   // setUpImageSrc (not required?)
   // imageSource as observable (remove setTimeout)
@@ -38,7 +40,6 @@ export class NoodleNgImageCrop implements OnInit {
   // targetCropSize
 
   // Child elements
-  @ViewChild("imgCropperBoundingBox") boundingBox: ElementRef;
   @ViewChild("imgCropperWrapper") wrapper: ElementRef;
   @ViewChild("imgCropperContainer") container: ElementRef;
   @ViewChild("imgCropperImage") image: ElementRef;
