@@ -1,19 +1,18 @@
-// Labels attached to buttons.
-export class NoodleNgImageCropActionLabels {
-  rotateLeft: string = " < ";
-  rotateRight: string = " > ";
-  zoomIn: string = " + ";
-  zoomOut: string = " - ";
-  fit: string = "(fit)";
-  crop: string = "[crop]"
-};
-
 // Defines UI text and styles for action button
 export class NoodleNgImageCropActionButton {
-  public action: string;
-  public text: string = "";
-  public cssClass: string = null;
-  public callback: any = null;
+  public action: NoodleNgImageCropAction;
+  public text: string;
+  public cssClass: string;
+}
+
+// enum to identify action to use
+export enum NoodleNgImageCropAction {
+  rotateLeft = 1,
+  rotateRight,
+  zoomIn,
+  zoomOut,
+  zoomToFit,
+  crop
 }
 
 // Pointer co-ordinates

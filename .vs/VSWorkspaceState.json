@@ -1,9 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\e2e\\src",
     "\\src"
   ],
-  "SelectedNode": "\\src\\tsconfig.spec.json",
+  "SelectedNode": "\\src\\noodle-ng-image-crop.component.css",
   "PreviewInSolutionExplorer": false
 }

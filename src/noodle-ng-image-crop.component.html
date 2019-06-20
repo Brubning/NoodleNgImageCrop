@@ -1,18 +1,10 @@
 <!-- Crop display -->
-<div #imgCropperBoundingBox style="height: 300px; width: 200px;">
-  <div #imgCropperWrapper id="imgCropper-wrapper" class="imgCropper-wrapper">
-    <div #imgCropperContainer id="imgCropper-container" class="imgCropper-container">
-      <img #imgCropperImage id="imgCropper-image" [src]="imageBindingSource" alt="Drag me!" />
-    </div>
+<div #imgCropperWrapper id="imgCropper-wrapper" class="imgCropper-wrapper">
+  <div #imgCropperContainer id="imgCropper-container" class="imgCropper-container">
+    <img #imgCropperImage id="imgCropper-image" [src]="imageBindingSource" alt="Drag me!" />
   </div>
 </div>
 <!-- Crop controls -->
 <div id="imgCropper-controls" class="imgCropper-controls" *ngIf="showControls">
-  <button (click)="rotateLeft()">{{actionLabels.rotateLeft}}</button>
-  <button (click)="zoomOut()">{{actionLabels.zoomOut}}</button>
-  <button (click)="zoomToFit()">{{actionLabels.fit}}</button>
-  <button (click)="crop()">{{actionLabels.crop}}</button>
-  <button (click)="zoomIn()">{{actionLabels.zoomIn}}</button>
-  <button (click)="rotateRight()">{{actionLabels.rotateRight}}</button>
-  <!--<button *ngFor="let button of actionButtons" (click)="executeCallback(button)">{{button.text}}</button>-->
+  <button *ngFor="let button of actionButtons" (click)="onAction(button.action)">{{button.text}}</button>
 </div>

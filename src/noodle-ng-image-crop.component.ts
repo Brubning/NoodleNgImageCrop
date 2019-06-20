@@ -12,7 +12,7 @@ import {
    Http
 } from "@angular/http";
 import {
-  NoodleNgImageCropActionLabels,
+  NoodleNgImageCropAction,
   NoodleNgImageCropActionButton,
   NoodleNgImagePointerPosition,
   NoodleNgImageCropData
@@ -45,9 +45,8 @@ export class NoodleNgImageCrop implements OnInit {
   // Inputs
   @Input() imageSource: string; // Source could be a URI or a data (base 64) source
   //@Input() checkCrossOrigin: boolean = true;
-  @Input() actionLabels: NoodleNgImageCropActionLabels = new NoodleNgImageCropActionLabels();
   @Input() actionButtons: Array<NoodleNgImageCropActionButton>;
-  private actionCallbacks: { [id: string]: any; } = {};
+  private actionCallbacks: { [action: number]: any; } = {};
   @Input() zoomStep: number = 0.1;  // Step size for zoom
   @Input() showControls: boolean = true;
   @Input() fitOnInit: boolean = false;
@@ -84,14 +83,13 @@ export class NoodleNgImageCrop implements OnInit {
 
   // Initialise
   ngOnInit() {
-    // Set up call backs array
-    const self = this;
-    this.actionCallbacks["rotateLeft"] = self.rotateLeft;
-    this.actionCallbacks["rotateRight"] = self.rotateRight;
-    this.actionCallbacks["zoomIn"] = self.zoomIn;
-    this.actionCallbacks["zoomOut"] = self.zoomOut;
-    this.actionCallbacks["fit"] = self.zoomToFit;
-    this.actionCallbacks["crop"] = self.crop;
+    // Set up call backs array //TODO Remove .bind(); Convert to lamdas?
+    this.actionCallbacks[NoodleNgImageCropAction.rotateLeft] = this.rotateLeft.bind(this);
+    this.actionCallbacks[NoodleNgImageCropAction.rotateRight] = this.rotateRight.bind(this);
+    this.actionCallbacks[NoodleNgImageCropAction.zoomIn] = this.zoomIn.bind(this);
+    this.actionCallbacks[NoodleNgImageCropAction.zoomOut] = this.zoomOut.bind(this);
+    this.actionCallbacks[NoodleNgImageCropAction.zoomToFit] = this.zoomToFit.bind(this);
+    this.actionCallbacks[NoodleNgImageCropAction.crop] = this.crop.bind(this);
     // Load image from source
     this.loadImage();
     // Initialize controls once loading finished.
@@ -105,10 +103,12 @@ export class NoodleNgImageCrop implements OnInit {
     this.startCallbackTouch;
   }
 
-  // Execute a callback from a button 
-  executeCallback(button: NoodleNgImageCropActionButton) {
-    if (button.callback)
-      button.callback();
+  // Execute action button click event
+  onAction(action: NoodleNgImageCropAction) {
+    if (!action)
+      return;
+
+    this.actionCallbacks[action]();
   }
 
   // Rotate left $event handler
@@ -171,11 +171,11 @@ export class NoodleNgImageCrop implements OnInit {
     // Dimensions are changed?
     if (degrees % 180 !== 0) {
       // Switch canvas dimensions (as percentages).
-      var tempW = this.cropHeight * this.cropRatio;
-      var tempH = this.cropWidth / this.cropRatio;
+      var tempW = this.height * this.cropRatio;
+      var tempH = this.width / this.cropRatio;
       this.width = tempW;
       this.height = tempH;
-      if (this.cropWidth >= 1 && this.height >= 1) {
+      if (this.width >= 1 && this.height >= 1) {
         //TODO Convert to bound style using ngStyle
         this.container.nativeElement.style.width = this.width * 100 + "%";
         this.container.nativeElement.style.height = this.height * 100 + "%";
@@ -382,18 +382,13 @@ export class NoodleNgImageCrop implements OnInit {
     if (!this.actionButtons) {
       this.actionButtons = 
       [
-        { action: "rotateLeft", text: " < ", cssClass: null, callback: null },
-        { action: "rotateRight", text: " > ", cssClass: null, callback: null },
-        { action: "zoomIn", text: " + ", cssClass: null, callback: null },
-        { action: "zoomOut", text: " - ", cssClass: null, callback: null },
-        { action: "fit", text: " (fit) ", cssClass: null, callback: null },
-        { action: "crop", text: " [crop] ", cssClass: null, callback: null }
+        { action: NoodleNgImageCropAction.rotateLeft, text: " < ", cssClass: null },
+        { action: NoodleNgImageCropAction.rotateRight, text: " > ", cssClass: null },
+        { action: NoodleNgImageCropAction.zoomIn, text: " + ", cssClass: null },
+        { action: NoodleNgImageCropAction.zoomOut, text: " - ", cssClass: null },
+        { action: NoodleNgImageCropAction.zoomToFit, text: " (fit) ", cssClass: null },
+        { action: NoodleNgImageCropAction.crop, text: " [crop] ", cssClass: null }
       ];
-    }
-
-    // map callbacks
-    for (let button of this.actionButtons) {
-      button.callback = this.actionCallbacks[button.action];
     }
   }
 
