@@ -1,6 +1,6 @@
 {
   "name": "noodle-ng-image-crop",
-  "version": "0.0.6-test01",
+  "version": "0.0.7",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -12,7 +12,7 @@
   },
   "ngPackage": {
     "lib": {
-      "entryFile": "./src/index.ts"
+      "entryFile": "src/index.ts"
     },
     "whitelistedNonPeerDependencies": []
   },
@@ -61,10 +61,16 @@
   ],
   "author": "David Brunning",
   "license": "MIT",
-  "main": "./dist/index.ts",
+  "main": "dist/bundles/noodle-ng-image-crop.umd.js",
   "files": [
-    "*",
-    "dist"
+    "src",
+    "dist",
+    "angular.json",
+    "package.json",
+    "package-lock.json",
+    "README.md",
+    "tsconfig.json",
+    "tslint.json"
   ],
   "bugs": {
     "url": "https://github.com/Brubning/NoodleNgImageCrop/issues"
