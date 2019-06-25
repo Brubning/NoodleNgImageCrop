@@ -2,11 +2,24 @@
 
 ## Description
 
+Angular image cropping component.
+
+The image can be zoomed/rotated, and then cropped. It is responsive, and works under mouse and/or touch events.
+
 This is a port of directive-based code from https://github.com/bcabanes/angular-image-cropper to an Angular 7 component.
 
 ## Installation
+### NPM
 
-No installation process yet. Yarn configuration supports packaging via ng-packagr.
+Install from npm using 
+
+``` javascript
+npm install noodle-ng-image-crop
+```
+
+### Yarn
+
+Yarn configuration supports packaging via ng-packagr.
 
 Install ng-packagr and Yarn and run the package script from the command line.
 
@@ -14,11 +27,7 @@ Install ng-packagr and Yarn and run the package script from the command line.
 yarn package
 ```
 
-Copy contents of dist to node_modules/NoodleNgImageCrop.
-
-### NPM
-
-npm package to follow.
+Copy contents of dist to node_modules/NoodleNgImageCrop in your project folder.
 
 ## Usage
 
@@ -53,8 +62,8 @@ Add the component to your template.
 #### Options
 
 Options can be set on the component:
-* `imageSource` _string_ URI for image source to crop, can be an URL or base64 data.
 <!--*```check-cross-origin boolean Enable cross origin or not-->
+* `imageSource` _string_ URI for image source to crop, can be an URL or base64 data.
 * `actionLabels` _NgNoodleImageCropActionLabels_ text to use on the default crop controls.
 * `zoom-step` _number_ Zoom step. Defaults to 0.1;
 * `show-controls` _boolean_ Display or not the control buttons (true by default)

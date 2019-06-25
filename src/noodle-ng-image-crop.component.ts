@@ -38,6 +38,7 @@ export class NoodleNgImageCrop implements OnInit {
   // imageSource as observable (remove setTimeout)
   // set up all styles as bound values
   // targetCropSize
+  // cropMode = relative | absolute
 
   // Child elements
   @ViewChild("imgCropperWrapper") wrapper: ElementRef;
@@ -49,6 +50,8 @@ export class NoodleNgImageCrop implements OnInit {
   @Input() actionButtons: Array<NoodleNgImageCropActionButton>;
   private actionCallbacks: { [action: number]: any; } = {};
   @Input() zoomStep: number = 0.1;  // Step size for zoom
+  @Input() maxZoom: number; // maximum zoom factor
+  @Input() minZoom: number; // minimum zoom factor
   @Input() showControls: boolean = true;
   @Input() fitOnInit: boolean = false;
   @Input() centerOnInit: boolean = false;
