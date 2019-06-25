@@ -1,6 +1,6 @@
 {
   "name": "noodle-ng-image-crop",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -62,9 +62,6 @@
   "author": "David Brunning",
   "license": "MIT",
   "main": "dist/index.ts",
-  "files": [
-    "dist"
-  ],
   "bugs": {
     "url": "https://github.com/Brubning/NoodleNgImageCrop/issues"
   },
