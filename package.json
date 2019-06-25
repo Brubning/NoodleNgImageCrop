@@ -1,50 +1,36 @@
 {
   "name": "noodle-ng-image-crop",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
-    "package": "ng-packagr -p package.json",
+    "build": "rimraf dist && ng build",
+    "package": "rimraf dist && ng-packagr -p package.json",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
   "ngPackage": {
     "lib": {
-      "entryFile": "./src/public_api.ts"
+      "entryFile": "./src/index.ts"
     },
-    "whitelistedNonPeerDependencies": [
-      "angular",
-      "core-js",
-      "rxjs",
-      "tslib",
-      "zone.js"
-    ]
+    "whitelistedNonPeerDependencies": []
   },
-  "private": true,
-  "dependencies": {
-    "@angular/common": "^7.2.15",
-    "@angular/compiler": "~7.2.0",
-    "@angular/core": "~7.2.0",
-    "@angular/forms": "~7.2.0",
-    "@angular/http": "^7.2.15",
-    "@angular/platform-browser": "~7.2.0",
-    "@angular/platform-browser-dynamic": "~7.2.0",
-    "@angular/router": "~7.2.0",
-    "core-js": "^2.5.4",
-    "rxjs": "~6.3.3",
-    "tslib": "^1.9.0",
-    "zone.js": "~0.8.26"
-  },
+  "private": false,
+  "dependencies": {},
   "peerDependencies": {
     "@angular/common": "^7.2.15",
-    "@angular/animations": "~7.2.0"
+    "@angular/core": "~7.2.0",
+    "@angular/http": "^7.2.15"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.13.0",
     "@angular/cli": "~7.3.9",
+    "@angular/common": "^7.2.15",
+    "@angular/compiler": "~7.2.0",
     "@angular/compiler-cli": "~7.2.0",
+    "@angular/core": "~7.2.0",
+    "@angular/http": "^7.2.15",
     "@angular/language-service": "~7.2.0",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
@@ -59,8 +45,28 @@
     "karma-jasmine-html-reporter": "^0.2.2",
     "ng-packagr": "^5.3.0",
     "protractor": "~5.4.0",
+    "rimraf": "^2.6.1",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
     "typescript": "~3.2.2"
-  }
+  },
+  "description": "This is an Angular image cropping component. The image can be zoomed/rotated, and then cropped. It is responsive, and works under mouse and/or touch events. It is a port of directive-based code from https://github.com/bcabanes/angular-image-cropper to an Angular 7 component.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Brubning/NoodleNgImageCrop.git"
+  },
+  "keywords": [
+    "Angular",
+    "ImageCrop"
+  ],
+  "author": "David Brunning",
+  "license": "MIT",
+  "main": "./dist/index.ts",
+  "files": [
+    "dist"
+  ],
+  "bugs": {
+    "url": "https://github.com/Brubning/NoodleNgImageCrop/issues"
+  },
+  "homepage": "https://github.com/Brubning/NoodleNgImageCrop#readme"
 }
