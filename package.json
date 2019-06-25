@@ -1,11 +1,12 @@
 {
   "name": "noodle-ng-image-crop",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "rimraf dist && ng build",
     "package": "rimraf dist && ng-packagr -p package.json",
+    "publish-npm": "yarn package && yarn pack && yarn publish",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -50,7 +51,7 @@
     "tslint": "~5.11.0",
     "typescript": "~3.2.2"
   },
-  "description": "This is an Angular image cropping component. The image can be zoomed/rotated, and then cropped. It is responsive, and works under mouse and/or touch events. It is a port of directive-based code from https://github.com/bcabanes/angular-image-cropper to an Angular 7 component.",
+  "description": "Angular image cropping component. It is a port of directive-based code from https://github.com/bcabanes/angular-image-cropper to an Angular 7 component.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Brubning/NoodleNgImageCrop.git"
