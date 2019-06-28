@@ -53,8 +53,8 @@ export class NoodleNgImageCrop implements OnInit {
   @Input() maxZoom: number; // maximum zoom factor
   @Input() minZoom: number; // minimum zoom factor
   @Input() showControls: boolean = true;
-  @Input() fitOnInit: boolean = false;
-  @Input() centerOnInit: boolean = false;
+  @Input() fitOnInit: boolean = true;
+  @Input() centerOnInit: boolean = true;
   @Input() cropWidth: number = 240;
   @Input() cropHeight: number = 300;
   // Outputs
@@ -318,6 +318,10 @@ export class NoodleNgImageCrop implements OnInit {
       this.fitImage();
       this.centerImage();
     }
+
+    if (this.minZoom) {
+      this.zoomImage(-1);
+    }
       
     this.initializeDrag();
 
@@ -438,10 +442,27 @@ export class NoodleNgImageCrop implements OnInit {
     if (step == 0)
       return 0;
 
-    if (step < 0)
-      return 1 / (1 + this.zoomStep);
+    // zoom out
+    if (step < 0) {
+      const zoomOut = 1 / (1 + this.zoomStep);
+      if (this.minZoom) {
+        return (this.cropData.scale * zoomOut < this.minZoom)
+          ? this.minZoom / this.cropData.scale
+          : zoomOut;
+      }
 
-    return 1 + this.zoomStep;
+      return zoomOut;
+    }
+
+    // zoom in
+    const zoomIn = 1 + this.zoomStep;
+    if (this.maxZoom) {
+      return (this.cropData.scale * zoomIn > this.maxZoom)
+        ? this.maxZoom / this.cropData.scale
+        : zoomIn;
+    }
+
+    return zoomIn;
   }
 
   // Start drag; binds events to handle dragging
