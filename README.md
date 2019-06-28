@@ -64,13 +64,15 @@ Add the component to your template.
 Options can be set on the component:
 <!--*```check-cross-origin boolean Enable cross origin or not-->
 * `imageSource` _string_ URI for image source to crop, can be an URL or base64 data.
-* `actionLabels` _NgNoodleImageCropActionLabels_ text to use on the default crop controls.
+* `actionButtons` _Array<NoodleNgImageCropActionButton>_ array of buttons to display in the control panel.
 * `zoom-step` _number_ Zoom step. Defaults to 0.1;
 * `show-controls` _boolean_ Display or not the control buttons (true by default)
 * `fit-on-init` _boolean_ Fit the image on initialization (maintains aspect ratio)
 * `center-on-init` _boolean_ Center the image on initialization (maintains aspect ratio)
 * `cropHeight` _number_ Height of the crop (and display height of bounding box).
 * `cropWidth` _number_ Width of the crop (and display width of bounding box).
+* `maxZoom` _number_ Restricts zoom applied to the image to be below a maximum scale.
+* `minZoom` _number_ Forces zoom applied to the image to be above a minimum scale.
 
 #### Handling Output
 
@@ -92,15 +94,27 @@ import { NoodleNgImageCropData } from "noodle-ng-image-crop";
 
 #### Models
 
-The NoodleNgImageActionLabels model contains details bound to the action controls at run time, allowing customisation of label.
+The NoodleNgImageCropActionButton model contains details bound to the action controls at run time, allowing customisation of label.
 
 ```javascript
-  rotateLeft: string = " < ";
-  rotateRight: string = " > ";
-  zoomIn: string = " + ";
-  zoomOut: string = " - ";
-  fit: string = "(fit)";
-  crop: string = "[crop]"
+  // Action that the button represents. Maps via NoodleNgImageCropAction enumeration to a set of supported actions.
+  action: NoodleNgImageCropAction;
+
+  // Text label applied to the button.
+  text: string;
+
+  // CssClass applied to the button.
+  cssClass: string;
+```
+
+The NoodleNgImageCropAction enumeration allows mapping of buttons to supported actions.
+```javascript
+  rotateLeft = 1,
+  rotateRight,
+  zoomIn,
+  zoomOut,
+  zoomToFit,
+  crop
 ```
 
 The NoodleNgImageCropData model contains details of the crop applies and is output by the onCrop event. It contains the following:
