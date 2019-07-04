@@ -67,6 +67,7 @@ export class NoodleNgImageCrop implements OnInit {
   public isDragReady: boolean = false;
   public isDragBound: boolean = false;
   public isCropping: boolean = false;
+  public isCropped: boolean = false;
   public pointerPosition: NoodleNgImagePointerPosition = new NoodleNgImagePointerPosition();
   // Control properties - should be a model and bound to the template
   public cropRatio: number;
@@ -104,7 +105,7 @@ export class NoodleNgImageCrop implements OnInit {
   // Destroy
   ngOnDestroy() {
     this.startCallbackMouse();
-    this.startCallbackTouch;
+    this.startCallbackTouch();
   }
 
   // Execute action button click event
@@ -382,6 +383,7 @@ export class NoodleNgImageCrop implements OnInit {
     this.cropData.croppedImage = canvas.toDataURL("image/jpeg");
     this.onCrop.emit(this.cropData);
     this.isCropping = false;
+    this.isCropped = true;
   }
 
   // Initialise the action buttons on the control
@@ -470,6 +472,7 @@ export class NoodleNgImageCrop implements OnInit {
     if (this.isReady && this.isValidEvent($event)) {
       $event.preventDefault;
       $event.stopImmediatePropagation;
+      this.isCropped = false;
       this.pointerPosition = this.getPointerPosition($event);
       this.bind();
     }
@@ -478,7 +481,7 @@ export class NoodleNgImageCrop implements OnInit {
 // Determine if an $event needs to be handled
   private isValidEvent($event): boolean {
     if (this.isTouchEvent($event)) {
-      return $event.changeTouches.length === 1;
+      return $event.changedTouches.length === 1;
     }
 
     return $event.which === 1;

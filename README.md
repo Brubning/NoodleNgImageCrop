@@ -63,7 +63,7 @@ Add the component to your template.
 
 Options can be set on the component:
 <!--*```check-cross-origin boolean Enable cross origin or not-->
-* `imageSource` _string_ URI for image source to crop, can be an URL or base64 data.
+* `imageSource` _string_ URI for image source to crop, can be a URL or base64 data.
 * `actionButtons` _Array<NoodleNgImageCropActionButton>_ array of buttons to display in the control panel.
 * `zoom-step` _number_ Zoom step. Defaults to 0.1;
 * `show-controls` _boolean_ Display or not the control buttons (true by default)
@@ -103,7 +103,7 @@ The NoodleNgImageCropActionButton model contains details bound to the action con
   // Text label applied to the button.
   text: string;
 
-  // CssClass applied to the button.
+  // Css class applied to the button.
   cssClass: string;
 ```
 

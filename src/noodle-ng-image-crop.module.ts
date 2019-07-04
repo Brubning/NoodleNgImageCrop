@@ -13,7 +13,8 @@ import {
     NoodleNgImageCrop
   ],
   exports: [
-    NoodleNgImageCrop]
+    NoodleNgImageCrop
+  ]
 })
 export class NoodleNgImageCropModule {
   static forRoot(): ModuleWithProviders {

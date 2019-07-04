@@ -6,5 +6,5 @@
 </div>
 <!-- Crop controls -->
 <div id="imgCropper-controls" class="imgCropper-controls" *ngIf="showControls">
-  <button *ngFor="let button of actionButtons" (click)="onAction(button.action)">{{button.text}}</button>
+  <button *ngFor="let button of actionButtons" (click)="onAction(button.action)" [ngClass]="button.cssClass">{{button.text}}</button>
 </div>
