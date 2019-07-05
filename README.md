@@ -126,13 +126,17 @@ The NoodleNgImageCropData model contains details of the crop applies and is outp
   // Image rotation on crop
   degrees: number = 0;
 
-  // X and Y co-ordinates of the cropping box
+  // Pixel based crop position and size
   x: number = 0;
   y: number = 0;
-
-  // Width and Height of the cropping box
   w: number = 1;  
   h: number = 1;
+
+  // Percentage based crop position and size
+  xPercent: number = 0;
+  yPercent: number = 0;
+  wPercent: number = 1;
+  hPercent: number = 1;
 
   // base64 data URI for the cropped image
   croppedImage: string;

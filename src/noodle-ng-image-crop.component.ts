@@ -379,6 +379,14 @@ export class NoodleNgImageCrop implements OnInit {
       );
     }
 
+    // Save percentage crop data
+    const scaledH = this.image.nativeElement.naturalHeight * this.cropData.scale;
+    const scaledW = this.image.nativeElement.naturalWidth * this.cropData.scale;
+    this.cropData.yPercent = this.cropData.y / scaledH;
+    this.cropData.xPercent = this.cropData.x / scaledW;
+    this.cropData.hPercent = this.cropData.h / scaledH;
+    this.cropData.wPercent = this.cropData.w / scaledW;
+
     // Output the cropped data
     this.cropData.croppedImage = canvas.toDataURL("image/jpeg");
     this.onCrop.emit(this.cropData);

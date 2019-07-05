@@ -29,5 +29,9 @@ export class NoodleNgImageCropData {
   y: number = 0;
   w: number = 1;
   h: number = 1;
+  xPercent: number = 0;
+  yPercent: number = 0;
+  wPercent: number = 1;
+  hPercent: number = 1;
   croppedImage: string;
 };
