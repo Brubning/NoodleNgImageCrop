@@ -65,7 +65,7 @@ export class NoodleNgImageCrop implements OnInit {
   // State flags
   public isReady: boolean = false;
   public isDragReady: boolean = false;
-  public isDragBound: boolean = false;
+  public isDragging: boolean = false;
   public isCropping: boolean = false;
   public isCropped: boolean = false;
   public pointerPosition: NoodleNgImagePointerPosition = new NoodleNgImagePointerPosition();
@@ -104,8 +104,13 @@ export class NoodleNgImageCrop implements OnInit {
 
   // Destroy
   ngOnDestroy() {
-    this.startCallbackMouse();
-    this.startCallbackTouch();
+    //TODO: Maintain array of callbacks to unbind
+    if (this.startCallbackMouse) this.startCallbackMouse();
+    if (this.moveCallbackMouse) this.moveCallbackMouse();
+    if (this.stopCallbackMouse) this.stopCallbackMouse();
+    if (this.startCallbackTouch) this.startCallbackTouch();
+    if (this.moveCallbackTouch) this.moveCallbackTouch();
+    if (this.stopCallbackTouch) this.stopCallbackTouch();
   }
 
   // Execute action button click event
@@ -444,6 +449,14 @@ export class NoodleNgImageCrop implements OnInit {
     //TODO Supply as array
     this.startCallbackMouse = this.renderer.listen(this.image.nativeElement, "mousedown", ($event) => this.startDrag($event));
     this.startCallbackTouch = this.renderer.listen(this.image.nativeElement, "touchstart", ($event) => this.startDrag($event));
+    // Drag events
+    this.moveCallbackMouse = this.renderer.listen(this.image.nativeElement, "mousemove", ($event) => this.drag($event));
+    this.moveCallbackTouch = this.renderer.listen(this.image.nativeElement, "touchmove", ($event) => this.drag($event));
+    // Stop events
+    this.stopCallbackMouse = this.renderer.listen(this.image.nativeElement, "mouseup", () => this.stopDrag());
+    this.stopCallbackMouse = this.renderer.listen(this.image.nativeElement, "mouseout", () => this.stopDrag());
+    this.stopCallbackTouch = this.renderer.listen(this.image.nativeElement, "touchend", () => this.stopDrag());
+
     this.isDragReady = true;
   }
 
@@ -480,57 +493,17 @@ export class NoodleNgImageCrop implements OnInit {
     if (this.isReady && this.isValidEvent($event)) {
       $event.preventDefault;
       $event.stopImmediatePropagation;
+      this.isDragging = true;
       this.isCropped = false;
       this.pointerPosition = this.getPointerPosition($event);
-      this.bind();
     }
-  }
-
-// Determine if an $event needs to be handled
-  private isValidEvent($event): boolean {
-    if (this.isTouchEvent($event)) {
-      return $event.changedTouches.length === 1;
-    }
-
-    return $event.which === 1;
-  }
-
-  // Determine if the $event is a touch $event
-  private isTouchEvent($event): boolean {
-    return /touch/i.test($event.type);
-  }
-
-  // Bind dragging events
-  private bind() {
-    // If you drag outside the area of the browser it is possible to bind twice causing unbind to leave extra callbacks.
-    this.unbind();
-
-    this.wrapper.nativeElement.classList.add("imgCropper-dragging");
-    // Drag events
-    this.moveCallbackMouse = this.renderer.listen(this.image.nativeElement, "mousemove", ($event) => this.drag($event));
-    this.moveCallbackTouch = this.renderer.listen(this.image.nativeElement, "touchmove", ($event) => this.drag($event));
-    // Stop events
-    this.stopCallbackMouse = this.renderer.listen(this.image.nativeElement, "mouseup", () => this.unbind());
-    this.stopCallbackMouse = this.renderer.listen(this.image.nativeElement, "mouseout", () => this.unbind());
-    this.stopCallbackTouch = this.renderer.listen(this.image.nativeElement, "touchend", () => this.unbind());
-
-    this.isDragBound = true;
-  }
-
-  // Unbind dragging events
-  private unbind() {
-    this.image.nativeElement.classList.remove("imgCropper-dragging");
-    //TODO: Maintain array of callbacks to unbind
-    if (this.moveCallbackMouse) this.moveCallbackMouse();
-    if (this.stopCallbackMouse) this.stopCallbackMouse();
-    if (this.moveCallbackTouch) this.moveCallbackTouch();
-    if (this.stopCallbackTouch) this.stopCallbackTouch();
-
-    this.isDragBound = false;
   }
 
   // Drag 
   private drag($event) {
+    if (!this.isDragging)
+      return;
+
     var dx, dy, left, p, top;
     $event.preventDefault();
     $event.stopImmediatePropagation();
@@ -551,6 +524,25 @@ export class NoodleNgImageCrop implements OnInit {
     top = (dy === 0)? null : this.top - dy / this.wrapper.nativeElement.clientHeight;
     // Move.
     this.setOffset(left, top);
+  }
+
+  // Stop Drag
+  private stopDrag() {
+    this.isDragging = false;
+  }
+
+// Determine if an $event needs to be handled
+  private isValidEvent($event): boolean {
+    if (this.isTouchEvent($event)) {
+      return $event.changedTouches.length === 1;
+    }
+
+    return $event.which === 1;
+  }
+
+  // Determine if the $event is a touch $event
+  private isTouchEvent($event): boolean {
+    return /touch/i.test($event.type);
   }
 
   // Set image offset

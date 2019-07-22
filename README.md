@@ -76,7 +76,7 @@ Options can be set on the component:
 
 #### Handling Output
 
-The crop action emits an onCrop event which can be handled by the parent component. The event emits an NgNoodleImageCropData object.
+The crop action emits an onCrop event which can be handled by the parent component. The event emits an NoodleNgImageCropData object.
 
 ```javascript
 import { NoodleNgImageCropData } from "noodle-ng-image-crop";
@@ -84,7 +84,7 @@ import { NoodleNgImageCropData } from "noodle-ng-image-crop";
 @component {
   ...
 
-  croppedOutput: NgNoodleImageCropData;
+  croppedOutput: NoodleNgImageCropData;
 
   onCrop($event) {
     this.croppedOutput = $event;
