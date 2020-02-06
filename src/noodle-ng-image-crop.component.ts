@@ -9,8 +9,8 @@ import {
    Renderer2
 } from "@angular/core";
 import {
-   Http
-} from "@angular/http";
+   HttpClient
+} from "@angular/common/http";
 import {
   NoodleNgImageCropAction,
   NoodleNgImageCropActionButton,
@@ -27,12 +27,11 @@ export class NoodleNgImageCrop implements OnInit {
 
   constructor(
     private renderer: Renderer2,
-    private http: Http) {
+    private http: HttpClient) {
   }
 
   // TODO
   // tests
-  // migrate to HttpClient
   // loadImage (cross origin load)
   // setUpImageSrc (not required?)
   // imageSource as observable (remove setTimeout)
@@ -305,12 +304,12 @@ export class NoodleNgImageCrop implements OnInit {
 
     // Load image from URI via http and bind result
     this.http
-      .get(this.imageSource)
+      .get<string>(this.imageSource)
       .subscribe(
         (response) => {
-          this.imageBindingSource = response.text().replace(/"/g, "");
+          this.imageBindingSource = response.replace(/"/g, "");
         },
-        (error) => {
+        () => {
           this.imageBindingSource = this.imageSource;
         });
   }
