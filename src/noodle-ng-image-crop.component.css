@@ -40,7 +40,8 @@ body.imgCropper-dragging, body.imgCropper-dragging * {
     border: none !important;
   }
 
-.imgCropper-controls { }
+.imgCropper-controls {
+}
 
 .imgCropper-sample {
   position: absolute !important;

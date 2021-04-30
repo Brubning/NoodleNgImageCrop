@@ -17,21 +17,21 @@ export enum NoodleNgImageCropAction {
 
 // Pointer co-ordinates
 export class NoodleNgImagePointerPosition {
-  x: number = 0;
-  y: number = 0;
+  public x: number = 0;
+  public y: number = 0;
 }
 
 // Data output asa  result of cropping
 export class NoodleNgImageCropData {
-  scale: number = 1;
-  degrees: number = 0;
-  x: number = 0;
-  y: number = 0;
-  w: number = 1;
-  h: number = 1;
-  xPercent: number = 0;
-  yPercent: number = 0;
-  wPercent: number = 1;
-  hPercent: number = 1;
-  croppedImage: string;
+  public scale: number = 1;
+  public degrees: number = 0;
+  public x: number = 0;
+  public y: number = 0;
+  public w: number = 1;
+  public h: number = 1;
+  public xPercent: number = 0;
+  public yPercent: number = 0;
+  public wPercent: number = 1;
+  public hPercent: number = 1;
+  public croppedImage: string;
 };
