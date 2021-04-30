@@ -40,9 +40,9 @@ export class NoodleNgImageCrop implements OnInit {
   // cropMode = relative | absolute
 
   // Child elements
-  @ViewChild("imgCropperWrapper") wrapper: ElementRef;
-  @ViewChild("imgCropperContainer") container: ElementRef;
-  @ViewChild("imgCropperImage") image: ElementRef;
+  @ViewChild("imgCropperWrapper", { static: false } ) wrapper: ElementRef;
+  @ViewChild("imgCropperContainer", { static: false } ) container: ElementRef;
+  @ViewChild("imgCropperImage", { static: false } ) image: ElementRef;
   // Inputs
   @Input() imageSource: string; // Source could be a URI or a data (base 64) source
   //@Input() checkCrossOrigin: boolean = true;
@@ -60,7 +60,7 @@ export class NoodleNgImageCrop implements OnInit {
   @Output() onCrop: EventEmitter<NoodleNgImageCropData> = new EventEmitter();
   // Component level properties
   imageBindingSource: string;
-  private originalSource: string = this.imageSource;
+  private originalSource: string;
   // State flags
   public isReady: boolean = false;
   public isDragReady: boolean = false;
@@ -87,6 +87,7 @@ export class NoodleNgImageCrop implements OnInit {
 
   // Initialise
   ngOnInit() {
+    this.originalSource = this.imageSource;
     // Set up call backs array //TODO Remove .bind(); Convert to lamdas?
     this.actionCallbacks[NoodleNgImageCropAction.rotateLeft] = this.rotateLeft.bind(this);
     this.actionCallbacks[NoodleNgImageCropAction.rotateRight] = this.rotateRight.bind(this);
