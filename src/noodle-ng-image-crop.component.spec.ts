@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { NoodleNgImageCropComponent } from './noodle-ng-image-crop.component';
 
@@ -6,7 +6,7 @@ describe('NoodleNgImageCropComponent', () => {
   let component: NoodleNgImageCropComponent;
   let fixture: ComponentFixture<NoodleNgImageCropComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ NoodleNgImageCropComponent ]
     })

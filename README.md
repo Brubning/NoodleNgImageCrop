@@ -6,7 +6,7 @@ Angular image cropping component.
 
 The image can be zoomed/rotated, and then cropped. It is responsive, and works under mouse and/or touch events.
 
-This is a port of directive-based code from https://github.com/bcabanes/angular-image-cropper to an Angular 10 component.
+This is a port of directive-based code from https://github.com/bcabanes/angular-image-cropper to an Angular 11 component.
 
 ## Installation
 ### NPM
@@ -145,6 +145,7 @@ The NoodleNgImageCropData model contains details of the crop applies and is outp
 # Angular Versions
 | Version | Angular Version |
 | --- | --- |
+| 0.3.0 | ^11.0.0 |
 | 0.2.0 | ^10.0.0 |
 | 0.1.0 | ^9.0.0 |
 | 0.0.14 | ^8.0.0 |
