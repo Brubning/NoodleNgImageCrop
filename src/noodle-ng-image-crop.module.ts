@@ -17,7 +17,7 @@ import {
   ]
 })
 export class NoodleNgImageCropModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<NoodleNgImageCropModule> {
     return {
       ngModule: NoodleNgImageCropModule
     };
