@@ -6,7 +6,8 @@ import {
    ViewChild,
    EventEmitter,
    ElementRef,
-   Renderer2
+   Renderer2,
+   RendererFactory2
 } from "@angular/core";
 import {
    HttpClient
@@ -26,19 +27,14 @@ import {
 export class NoodleNgImageCrop implements OnInit {
 
   constructor(
-    private renderer: Renderer2,
+    private rendererFactory: RendererFactory2,
     private http: HttpClient) {
+    // Create renderer
+    this.renderer = this.rendererFactory.createRenderer(null, null);
   }
 
-  // TODO
-  // tests
-  // loadImage (cross origin load)
-  // setUpImageSrc (not required?)
-  // imageSource as observable (remove setTimeout)
-  // set up all styles as bound values
-  // targetCropSize
-  // cropMode = relative | absolute
-
+  // Renderer
+  private renderer: Renderer2
   // Child elements
   @ViewChild("imgCropperWrapper", { static: false } ) wrapper: ElementRef;
   @ViewChild("imgCropperContainer", { static: false } ) container: ElementRef;

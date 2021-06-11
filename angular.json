@@ -1,13 +1,16 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": "a63c2f92-ecd5-4d31-a3c5-21c64b8eb5b7"
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
     "NoodleNgImageCrop": {
       "root": "",
       "sourceRoot": "src",
-      "projectType": "application",
-      "prefix": "app",
+      "projectType": "library",
+      "prefix": "noodle-ng",
       "schematics": {},
       "architect": {
         "build": {
@@ -15,14 +18,11 @@
           "options": {
             "aot": true,
             "outputPath": "dist/NoodleNgImageCrop",
-            "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
+            "index":  "",
+            "main": "src/index.ts",
+            "polyfills": "",
             "tsConfig": "tsconfig.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
+            "assets": [],
             "styles": [
               "src/styles.css"
             ],
@@ -99,34 +99,6 @@
               "tsconfig.json",
               "src/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
-    "NoodleNgImageCrop-e2e": {
-      "root": "e2e/",
-      "projectType": "application",
-      "prefix": "",
-      "architect": {
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "NoodleNgImageCrop:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "NoodleNgImageCrop:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": "e2e/tsconfig.e2e.json",
             "exclude": [
               "**/node_modules/**"
             ]
