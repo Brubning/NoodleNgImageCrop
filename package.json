@@ -1,25 +1,16 @@
 {
   "name": "noodle-ng-image-crop",
-  "version": "0.5.0",
+  "version": "0.6.0",
+  "type": "module",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "rimraf dist && ng build",
-    "package": "rimraf dist && ng-packagr -p package.json",
+    "package": "rimraf dist && ng-packagr -p ng-package.json",
     "publish-npm": "yarn package && yarn pack && yarn publish",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
-  },
-  "ngPackage": {
-    "lib": {
-      "entryFile": "src/index.ts"
-    },
-    "allowedNonPeerDependencies": [
-      "@angular/core",
-      "@angular/common",
-      "zone.js"
-    ]
   },
   "private": false,
   "dependencies": {
