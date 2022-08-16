@@ -1,0 +1,7 @@
+{
+  "allowedNonPeerDependencies": [
+    "@angular/core",
+    "@angular/common",
+    "zone.js"
+  ]
+}
