@@ -145,6 +145,7 @@ The NoodleNgImageCropData model contains details of the crop applies and is outp
 # Angular Versions
 | Version | Angular Version |
 | --- | --- |
+| 0.9.0 | ^17.0.0 |
 | 0.8.0 | ^16.0.0 |
 | 0.7.0 | ^15.0.0 |
 | 0.6.0 | ^14.0.0 |
