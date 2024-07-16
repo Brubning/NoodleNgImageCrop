@@ -9,9 +9,7 @@ import {
    Renderer2,
    RendererFactory2
 } from "@angular/core";
-import {
-   HttpClient
-} from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import {
   NoodleNgImageCropAction,
   NoodleNgImageCropActionButton,
