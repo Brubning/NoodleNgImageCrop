@@ -16,7 +16,7 @@
   "dependencies": {
     "@angular/common": "^16.2.12",
     "@angular/core": "^16.2.12",
-    "zone.js": "^0.13.3"
+    "zone.js": "^0.14.7"
   },
   "peerDependencies": {
     "rxjs": "^6.6.7"
@@ -30,19 +30,11 @@
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "^2.0.10",
     "@types/node": "^18.19.39",
-    "jasmine-core": "~3.6.0",
-    "jasmine-spec-reporter": "~5.0.0",
-    "karma": "^6.4.0",
-    "karma-chrome-launcher": "^3.1.1",
-    "karma-coverage-istanbul-reporter": "~3.0.2",
-    "karma-jasmine": "^4.0.2",
-    "karma-jasmine-html-reporter": "^1.7.0",
     "ng-packagr": "^16.2.3",
-    "protractor": "^7.0.0",
     "rimraf": "^3.0.2",
     "ts-node": "^8.10.2",
     "tslib": "^2.6.3",
-    "typescript": "^4.9.3"
+    "typescript": "5.2"
   },
   "description": "Angular image cropping component. It is a port of directive-based code from https://github.com/bcabanes/angular-image-cropper to an Angular 16 component.",
   "repository": {
